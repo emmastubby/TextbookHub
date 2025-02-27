@@ -1,10 +1,24 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar'; // Import the NavBar component
+import Home from './pages/Home';
+import FindBook from './pages/FindBook';
+import SellBook from './pages/SellBook';
+import Messages from './pages/Messages';
 
-function App() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-}
+const App = () => {
+  return (
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/find" element={<FindBook />} />
+        <Route path="/sell" element={<SellBook />} />
+        <Route path="/messages" element={<Messages />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
+

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import FindBookCard from "../components/FindBookCard";
+import algo from '../assets/algo.jpg';
 
 const FindBook = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,9 +17,7 @@ const FindBook = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-4">Find a Book</h1>
-
+    <div className="flex flex-col min-h-screen p-6">
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="w-full max-w-md flex">
         <input
@@ -39,6 +39,8 @@ const FindBook = () => {
       {searchTerm && (
         <p className="mt-4 text-gray-600">Searching for: <strong>{searchTerm}</strong></p>
       )}
+
+      <FindBookCard picture={algo} title="Algorithm Analysis" edition="10" author="Qi Cheng" price="20" condition="Good"/>
     </div>
   );
 };

@@ -49,12 +49,12 @@ const SignUp = () => {
       <div className="bg-[#e3e3e3] max-w-[30rem] p-6 rounded-lg flex flex-col items-center">
         <form
           onSubmit={handleSignUp}
-          className="flex flex-col items-center space-y-6 px-16 mt-[4rem]"
+          className="flex flex-col items-center space-y-6 px-16 mt-4"
         >
           <h1 className="text-2xl font-bold">Sign Up</h1>
           <input
             type="email"
-            className="w-[20rem] bg-[#FFFFFF] h-8 text-black rounded py-2 px-3"
+            className="w-[20rem] bg-[#FFFFFF] h-8 text-black rounded py-5 px-6"
             value={email}
             required
             placeholder="Email"
@@ -66,7 +66,7 @@ const SignUp = () => {
 
           <input
             type="password"
-            className="w-[20rem] bg-[#FFFFFF] h-8 text-black rounded py-2 px-3"
+            className="w-[20rem] bg-[#FFFFFF] h-8 text-black rounded py-5 px-6"
             value={password}
             required
             placeholder="Password"
@@ -74,14 +74,14 @@ const SignUp = () => {
           />
           <input
             type="password"
-            className="w-[20rem] bg-[#FFFFFF] h-8 text-black rounded py-2 px-3"
+            className="w-[20rem] bg-[#FFFFFF] h-8 text-black rounded py-5 px-6"
             value={verifyPassword}
             required
             placeholder="Verify password"
             onChange={(e) => setVerifyPassword(e.target.value)}
           />
         </form>
-        <div className="flex flex-col w-full items-center justify-end space-y-8 mb-4 mt-2">
+        <div className="flex flex-col w-full items-center justify-end space-y-8 mb-4 mt-8">
           <button
             type="submit"
             className="w-fit bg-white text-black py-2 px-8 rounded-xl mt-"

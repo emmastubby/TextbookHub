@@ -1,15 +1,34 @@
+import React from "react";
+
 const ListBookForm = () => {
+  const [formData, setFormData] = React.useState({
+    title: "",
+    author: "",
+    isbn: "",
+    condition: "New",
+    price: "",
+    description: "",
+    image: null,
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+  return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
       <h1 className="text-2xl font-bold mb-6">Sell a Book</h1>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 shadow-md rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md bg-white p-6 shadow-md rounded-md"
+      >
         {/* Title */}
         <label className="block mb-2 font-semibold">Title:</label>
         <input
           type="text"
           name="title"
           value={formData.title}
-          onChange={handleChange}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
           className="w-full p-2 border rounded-md mb-4"
         />
@@ -20,7 +39,7 @@ const ListBookForm = () => {
           type="text"
           name="author"
           value={formData.author}
-          onChange={handleChange}
+          onChange={(e) => setFormData({ ...formData, author: e.target.value })}
           required
           className="w-full p-2 border rounded-md mb-4"
         />
@@ -31,7 +50,7 @@ const ListBookForm = () => {
           type="text"
           name="isbn"
           value={formData.isbn}
-          onChange={handleChange}
+          onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
           className="w-full p-2 border rounded-md mb-4"
         />
 
@@ -40,7 +59,9 @@ const ListBookForm = () => {
         <select
           name="condition"
           value={formData.condition}
-          onChange={handleChange}
+          onChange={(e) =>
+            setFormData({ ...formData, condition: e.target.value })
+          }
           className="w-full p-2 border rounded-md mb-4"
         >
           <option value="New">New</option>
@@ -56,27 +77,35 @@ const ListBookForm = () => {
           type="number"
           name="price"
           value={formData.price}
-          onChange={handleChange}
+          onChange={(e) =>
+            setFormData({ ...formData, price: parseFloat(e.target.value) })
+          }
           required
           className="w-full p-2 border rounded-md mb-4"
         />
 
         {/* Description */}
-        <label className="block mb-2 font-semibold">Description (Optional):</label>
+        <label className="block mb-2 font-semibold">
+          Description (Optional):
+        </label>
         <textarea
           name="description"
           value={formData.description}
-          onChange={handleChange}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
           rows="3"
           className="w-full p-2 border rounded-md mb-4"
         ></textarea>
 
         {/* Image Upload */}
-        <label className="block mb-2 font-semibold">Upload Image (Optional):</label>
+        <label className="block mb-2 font-semibold">
+          Upload Image (Optional):
+        </label>
         <input
           type="file"
           accept="image/*"
-          onChange={handleFileChange}
+          onChange={() => {}}
           className="w-full mb-4"
         />
 
@@ -89,6 +118,7 @@ const ListBookForm = () => {
         </button>
       </form>
     </div>
+  );
 };
 
 export default ListBookForm;

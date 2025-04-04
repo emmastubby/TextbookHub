@@ -13,6 +13,7 @@ import SellBook from "./pages/SellBook";
 import Messages from "./pages/Messages";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import ListBookForm from "./components/ListBookForm";
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/" element={<Navigate to="/find" />} />
         <Route path="/find" element={<FindBook />} />
         <Route path="/sell" element={<SellBook />} />
+        <Route path="/sell/new" element={<ListBookForm />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

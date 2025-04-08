@@ -3,8 +3,10 @@ import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
 import { useRecoilState } from "recoil";
 import { authState } from "../recoil/atoms";
+import { useNavigate } from "react-router-dom";
 
 const ListBookForm = () => {
+  const navigate = useNavigate();
   const [auth, setAuth] = useRecoilState(authState);
   const [formData, setFormData] = React.useState({
     title: "",
@@ -41,7 +43,7 @@ const ListBookForm = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 pt-24">
       <h1 className="text-2xl font-bold mb-6">Sell a Book</h1>
 
       <form
@@ -131,16 +133,25 @@ const ListBookForm = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={() => {}}
+          onChange={() => { }}
           className="w-full mb-4"
         />
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-purple-600 text-white p-2 font-semibold rounded-md hover:bg-purple-700"
+          className="w-full bg-green-600 hover:bg-green-700 text-white p-2 mb-2 font-semibold rounded-md"
         >
           List Book for Sale
+        </button>
+
+        {/* Cancel Button */}
+        <button
+          type="button"
+          className="w-full bg-gray-400 hover:bg-gray-500 text-white p-2 font-semibold rounded-md"
+          onClick={() => navigate("/sell/")}
+        >
+          Cancel
         </button>
       </form>
     </div>

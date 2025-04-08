@@ -1,11 +1,14 @@
 import { IconButton } from '@mui/material';
 import { FavoriteBorder } from '@mui/icons-material';
-import { Favorite } from '@mui/icons-material';
+import { Favorite, ChatBubbleOutline } from '@mui/icons-material';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const FindBookCard = ({ picture, title, edition, author, price, condition }) => {
 
     const [isFavorited, setIsFavorited] = useState(false);
+
+    const navigate = useNavigate();
 
     const toggleFavorite = () => {
         setIsFavorited((prev) => !prev);
@@ -24,11 +27,13 @@ const FindBookCard = ({ picture, title, edition, author, price, condition }) => 
                 <p className="text-gray-500 mt-1">{condition} condition</p>
             </div>
             <div className="p-4 pt-2">
+                {/* TODO: Navigate to chat with specifc seller */}
                 <button
                     className="w-4/5 bg-blue-500 text-white py-2 px-4 mr-1 rounded-lg hover:bg-blue-600 transition"
-                    onClick={toggleFavorite}
+                    onClick={() => navigate("/messages/")}
                 >
                     Message
+                    <ChatBubbleOutline className="ml-4"></ChatBubbleOutline>
                 </button>
                 {/* TODO: Add Book object to favorites list */}
                 <IconButton

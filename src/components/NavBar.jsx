@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaBook, FaUserCircle } from "react-icons/fa";
 import { useRecoilState } from "recoil";
 import { authState } from "../recoil/atoms";
+import { Logout, Login } from '@mui/icons-material';
 
 const NavBar = () => {
   const [authAtom, setAuthAtom] = useRecoilState(authState);
@@ -34,7 +35,7 @@ const NavBar = () => {
       </div>
 
       {/* Middle Section: Navigation Links */}
-      <div className="flex space-x-8">
+      <div className={ authAtom.isLoggedIn ? "flex space-x-8 ml-24" : "flex space-x-8 mr-16"}>
         <Link to="/find" className={getLinkClass("/find")}>
           Find a Book
         </Link>
@@ -60,13 +61,17 @@ const NavBar = () => {
           <button className="bg-blue-500 text-white px-6 py-2 rounded">
             <Link to="/find" onClick={handleLogout}>
               Logout
+              <Logout className="ml-2 mb-1"></Logout>
             </Link>
           </button>
         </div>
       ) : (
         <div className="flex items-center space-x-2">
           <button className="bg-blue-500 text-white px-6 py-2 rounded">
-            <Link to="/login">Login</Link>
+            <Link to="/login">
+            Login
+            <Login className="ml-2 mb-1"></Login>
+            </Link>
           </button>
         </div>
       )}

@@ -1,8 +1,8 @@
 import { IconButton } from '@mui/material';
-import { Edit } from '@mui/icons-material';
+import { Check } from '@mui/icons-material';
 import { FavoriteBorder } from '@mui/icons-material';
 
-const SellBookCard = ({picture, title, edition, author, price, condition}) => {
+const SoldBookCard = ({picture, title, edition, author, price, condition}) => {
     return (
       <div className="w-80 rounded-lg shadow-lg overflow-hidden bg-white mt-4">
         <img src={picture} className="w-full h-48 object-cover" />
@@ -16,15 +16,13 @@ const SellBookCard = ({picture, title, edition, author, price, condition}) => {
           <p className="text-gray-500 mt-1">{condition} condition</p>
         </div>
         <div className="p-4 pt-2">
-          <button
-            className="w-full bg-yellow-500 text-white py-2 px-4 mr-1 rounded-lg hover:bg-yellow-600 transition"
-          >
-            Edit Listing
-            <Edit className="ml-4 mb-1"></Edit>
-          </button>
+        <h2 className="text-xl font-bold">
+            Sold
+            <Check className="ml-4 mb-1"></Check>
+            </h2>
         </div>
       </div>
     );
   };
 
-  export default SellBookCard;
+  export default SoldBookCard;

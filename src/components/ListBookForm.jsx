@@ -1,6 +1,11 @@
 import React from "react";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../firebase-config";
+import { useRecoilState } from "recoil";
+import { authState } from "../recoil/atoms";
 
 const ListBookForm = () => {
+  const [auth, setAuth] = useRecoilState(authState);
   const [formData, setFormData] = React.useState({
     title: "",
     author: "",
@@ -13,7 +18,28 @@ const ListBookForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(formData);
+    console.log(auth);
+    const booksRef = collection(db, "books");
+    // Add the formdata to firestore database
+    const dofRef = addDoc(booksRef, {
+      title: formData.title,
+      author: formData.author,
+      isbn: formData.isbn,
+      condition: formData.condition,
+      price: formData.price,
+      description: formData.description,
+      image: formData.image,
+    })
+      .then(() => {
+        console.log("Document written with ID: ", dofRef.id);
+      })
+      .catch((error) => {
+        console.error("Error adding document: ", error);
+      });
+    alert("Book listed for sale!");
   };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
       <h1 className="text-2xl font-bold mb-6">Sell a Book</h1>

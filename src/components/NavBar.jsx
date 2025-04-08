@@ -13,7 +13,7 @@ const NavBar = () => {
       : "text-gray-700 hover:text-brown-600";
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-white shadow-md">
+    <nav className="flex justify-between items-center p-4 bg-white shadow-md w-full fixed z-10">
       {/* Left Section: Home Icon */}
       <div className="flex items-center">
         <Link to="/" className="text-red-950 text-xl flex items-center">

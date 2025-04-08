@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SellBookCard from "../components/SellBookCard";
+import SoldBookCard from "../components/SoldBookCard";
 import algo from "../assets/algo.jpg";
 import { Add } from '@mui/icons-material';
 
@@ -60,6 +61,16 @@ const SellBook = () => {
         price="20"
         condition="Good"
       ></SellBookCard>
+
+      <h1 className="text-2xl font-bold text-gray-600 mt-10">My Past Listings:</h1>
+      <SoldBookCard
+        picture={algo}
+        title="Algorithm Analysis"
+        edition="10"
+        author="Qi Cheng"
+        price="20"
+        condition="Good"
+      ></SoldBookCard>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const FindBook = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen p-6">
+    <div className="flex flex-col min-h-screen p-6 pt-24">
       {/* Search Bar */}
       <form onSubmit={handleSearch} className="w-full max-w-md flex">
         <input

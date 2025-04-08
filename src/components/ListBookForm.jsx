@@ -32,14 +32,18 @@ const ListBookForm = () => {
       price: formData.price,
       description: formData.description,
       image: formData.image,
+      userID: auth.userID,
     })
       .then(() => {
         console.log("Document written with ID: ", dofRef.id);
+        // Show success message
+        alert("Book listed for sale!");
+        // navigate user to /sell
+        navigate("/sell");
       })
       .catch((error) => {
         console.error("Error adding document: ", error);
       });
-    alert("Book listed for sale!");
   };
 
   return (
@@ -133,7 +137,7 @@ const ListBookForm = () => {
         <input
           type="file"
           accept="image/*"
-          onChange={() => { }}
+          onChange={() => {}}
           className="w-full mb-4"
         />
 

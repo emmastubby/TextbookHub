@@ -1,4 +1,5 @@
 import { IconButton } from '@mui/material';
+import { Edit } from '@mui/icons-material';
 import { FavoriteBorder } from '@mui/icons-material';
 
 const SellBookCard = ({picture, title, edition, author, price, condition}) => {
@@ -19,6 +20,7 @@ const SellBookCard = ({picture, title, edition, author, price, condition}) => {
             className="w-full bg-yellow-500 text-white py-2 px-4 mr-1 rounded-lg hover:bg-yellow-600 transition"
           >
             Edit Listing
+            <Edit className="ml-4 mb-1"></Edit>
           </button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import { FavoriteBorder } from '@mui/icons-material';
-import { Favorite } from '@mui/icons-material';
+import { Favorite, ChatBubbleOutline } from '@mui/icons-material';
 import { useState } from "react";
 
 const FindBookCard = ({ picture, title, edition, author, price, condition }) => {
@@ -29,6 +29,7 @@ const FindBookCard = ({ picture, title, edition, author, price, condition }) => 
                     onClick={toggleFavorite}
                 >
                     Message
+                    <ChatBubbleOutline className="ml-4"></ChatBubbleOutline>
                 </button>
                 {/* TODO: Add Book object to favorites list */}
                 <IconButton

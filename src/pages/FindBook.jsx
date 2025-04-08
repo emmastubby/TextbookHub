@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import FindBookCard from "../components/FindBookCard";
 import algo from '../assets/algo.jpg';
+import { Search } from '@mui/icons-material';
 
 const FindBook = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,7 +32,10 @@ const FindBook = () => {
           type="submit"
           className="px-4 py-3 bg-green-600 text-white font-semibold rounded-r-md hover:bg-green-700"
         >
+          <div className="flex">
           Search
+          <Search className="ml-3"></Search>
+          </div>
         </button>
       </form>
 

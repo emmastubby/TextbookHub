@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Send } from '@mui/icons-material';
+import { CallMade } from '@mui/icons-material';
 
 const MessagingPage = () => {
   const [messages, setMessages] = useState([
@@ -23,7 +25,7 @@ const MessagingPage = () => {
     <div className="flex w-full h-screen bg-gray-100 pt-16">
       {/* Left Sidebar (Chat List) */}
       <div className="w-1/4 bg-white p-4 shadow-md overflow-y-auto h-full">
-        <h2 className="text-xl font-semibold mb-4">Chats</h2>
+        <h2 className="text-xl font-semibold mb-4">All Messages:</h2>
         <ul className="space-y-2">
           {chats.map((chat) => (
             <li
@@ -46,9 +48,10 @@ const MessagingPage = () => {
           <h2 className="text-lg font-semibold p-4">{activeChat.transaction} {activeChat.title} ({activeChat.edition} edition)</h2>
           <h2 className="text-lg p-4">Status: {activeChat.status}</h2>
           <button
-            className="w-fit-content h-2/3 bg-green-600 text-white py-2 px-4 mr-1 rounded-lg hover:bg-green-700 transition align-self-center"
+            className="w-fit-content h-2/3 bg-green-600 text-white py-2 px-4 mr-4 rounded-lg hover:bg-green-700 transition align-self-center"
           >
             Go to Listing
+            <CallMade className="mb-1 ml-2"></CallMade>
           </button>
         </div>
         <hr />
@@ -77,10 +80,11 @@ const MessagingPage = () => {
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           />
           <button
-            className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md"
+            className="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md items-center"
             onClick={sendMessage}
           >
             Send
+            <Send className="mb-1 ml-2" fontSize="inherit"></Send>
           </button>
         </div>
       </div>

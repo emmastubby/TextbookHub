@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SellBookCard from "../components/SellBookCard";
 import SoldBookCard from "../components/SoldBookCard";
 import algo from "../assets/algo.jpg";
-import { Add } from '@mui/icons-material';
+import { Add } from "@mui/icons-material";
+import { useRecoilState } from "recoil";
+import { authState } from "../recoil/atoms";
+import { db } from "../firebase-config";
+import { getDocs, collection } from "firebase/firestore";
 
 const SellBook = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +19,30 @@ const SellBook = () => {
     description: "",
     image: null,
   });
+  const [auth, setAuth] = useRecoilState(authState);
+  const [books, setBooks] = useState([]);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchBooks = async () => {
+      // pull user data from firebase
+      const userID = auth.userID;
+      const booksRef = collection(db, "books");
+      const booksSnapshot = await getDocs(booksRef);
+      const booksList = booksSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log(booksList);
+      // filter books by userID
+      const userBooks = booksList.filter((book) => book.userID === userID);
+
+      // set books state
+      setBooks(userBooks);
+    };
+    fetchBooks();
+  }, []);
 
   // Handle input changes
   const handleChange = (event) => {
@@ -53,16 +80,22 @@ const SellBook = () => {
       </div>
 
       <h1 className="text-2xl font-bold text-gray-600">My Active Listings:</h1>
-      <SellBookCard
-        picture={algo}
-        title="Algorithm Analysis"
-        edition="10"
-        author="Qi Cheng"
-        price="20"
-        condition="Good"
-      ></SellBookCard>
-
-      <h1 className="text-2xl font-bold text-gray-600 mt-10">My Past Listings:</h1>
+      <div className="flex flex-wrap gap-4 mt-4">
+        {books.map((book) => (
+          <SellBookCard
+            key={book.id}
+            picture={book.image}
+            title={book.title}
+            edition={book.edition}
+            author={book.author}
+            price={book.price}
+            condition={book.condition}
+          ></SellBookCard>
+        ))}
+      </div>
+      <h1 className="text-2xl font-bold text-gray-600 mt-10">
+        My Past Listings:
+      </h1>
       <SoldBookCard
         picture={algo}
         title="Algorithm Analysis"

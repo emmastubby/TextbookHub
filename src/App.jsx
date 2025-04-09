@@ -14,6 +14,7 @@ import Messages from "./pages/Messages";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import ListBookForm from "./components/ListBookForm";
+import EditBook from "./pages/EditBook";
 
 const App = () => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/find" element={<FindBook />} />
         <Route path="/sell" element={<SellBook />} />
         <Route path="/sell/new" element={<ListBookForm />} />
+        <Route path="/sell/edit" element={<EditBook />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

@@ -80,7 +80,7 @@ const SellBook = () => {
       </div>
 
       <h1 className="text-2xl font-bold text-gray-600">My Active Listings:</h1>
-      <div className="flex flex-wrap gap-4 mt-4">
+      <div className="flex gap-4 overflow-x-auto p-4">
         {books.map((book) => (
           <SellBookCard
             key={book.id}

@@ -1,14 +1,15 @@
-import React from "react";
-import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../firebase-config";
+import React, { useEffect } from "react";
+import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase-config";
 import { useRecoilState } from "recoil";
 import { authState } from "../recoil/atoms";
 import { useNavigate } from "react-router-dom";
 
-const ListBookForm = () => {
+const EditBook = () => {
   const navigate = useNavigate();
   const [auth, setAuth] = useRecoilState(authState);
   const [formData, setFormData] = React.useState({
+    bookId: "",
     title: "",
     author: "",
     isbn: "",
@@ -19,36 +20,54 @@ const ListBookForm = () => {
     image: null,
   });
 
-  const handleSubmit = (event) => {
+  // Get bookId from query params
+  const queryParams = new URLSearchParams(window.location.search);
+  const bookId = queryParams.get("bookId");
+
+  // Fetch book data from Firestore
+  useEffect(() => {
+    const fetchBookData = async () => {
+      const booksRef = collection(db, "books");
+      const bookSnapshot = await getDocs(booksRef);
+      const bookList = bookSnapshot.docs.map((doc) => ({
+        bookId: doc.id,
+        ...doc.data(),
+      }));
+      // Find the book with the given bookId
+      const book = bookList.find((book) => book.bookId === bookId);
+      if (book) {
+        setFormData(book);
+      }
+    };
+    fetchBookData();
+  }, []);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const booksRef = collection(db, "books");
-    // Add the formdata to firestore database
-    const dofRef = addDoc(booksRef, {
-      title: formData.title,
-      author: formData.author,
-      isbn: formData.isbn,
-      condition: formData.condition,
-      edition: formData.edition,
-      price: formData.price,
-      description: formData.description,
-      image: formData.image,
-      userID: auth.userID,
-    })
-      .then(() => {
-        console.log("Document written with ID: ", dofRef.id);
-        // Show success message
-        alert("Book listed for sale!");
-        // navigate user to /sell
-        navigate("/sell");
-      })
-      .catch((error) => {
-        console.error("Error adding document: ", error);
+    try {
+      const bookRef = doc(db, "books", bookId); // Reference to the document
+      await updateDoc(bookRef, {
+        title: formData.title,
+        author: formData.author,
+        isbn: formData.isbn,
+        condition: formData.condition,
+        edition: formData.edition,
+        price: formData.price,
+        description: formData.description,
+        image: formData.image,
+        userID: auth.userID,
       });
+      alert("Book updated successfully!");
+      navigate("/sell");
+    } catch (error) {
+      console.error("Error updating document: ", error);
+      alert("Failed to update the book.");
+    }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6 pt-24">
-      <h1 className="text-2xl font-bold mb-6">Sell a Book</h1>
+      <h1 className="text-2xl font-bold mb-6">Edit book info</h1>
 
       <form
         onSubmit={handleSubmit}
@@ -158,7 +177,7 @@ const ListBookForm = () => {
           type="submit"
           className="w-full bg-green-600 hover:bg-green-700 text-white p-2 mb-2 font-semibold rounded-md"
         >
-          List Book for Sale
+          Update Book
         </button>
 
         {/* Cancel Button */}
@@ -174,4 +193,4 @@ const ListBookForm = () => {
   );
 };
 
-export default ListBookForm;
+export default EditBook;

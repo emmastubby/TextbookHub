@@ -1,6 +1,7 @@
 import { IconButton } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { FavoriteBorder } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const SellBookCard = ({
   picture,
@@ -9,7 +10,9 @@ const SellBookCard = ({
   author,
   price,
   condition,
+  bookId,
 }) => {
+  const navigate = useNavigate();
   // edition is a number, convert to string. If 1st, 2nd, 3rd, else add "th"
   const editionString = (edition) => {
     if (edition === 1) {
@@ -36,7 +39,12 @@ const SellBookCard = ({
         <p className="text-gray-500 mt-1">{condition} condition</p>
       </div>
       <div className="p-4 pt-2">
-        <button className="w-full bg-yellow-500 text-white py-2 px-4 mr-1 rounded-lg hover:bg-yellow-600 transition">
+        <button
+          className="w-full bg-yellow-500 text-white py-2 px-4 mr-1 rounded-lg hover:bg-yellow-600 transition"
+          onClick={() => {
+            navigate(`edit?bookId=${bookId}`);
+          }}
+        >
           Edit Listing
           <Edit className="ml-4 mb-1"></Edit>
         </button>

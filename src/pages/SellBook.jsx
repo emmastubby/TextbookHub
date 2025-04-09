@@ -84,6 +84,7 @@ const SellBook = () => {
         {books.map((book) => (
           <SellBookCard
             key={book.id}
+            bookId={book.id}
             picture={book.image}
             title={book.title}
             edition={book.edition}

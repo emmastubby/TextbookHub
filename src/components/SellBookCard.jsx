@@ -27,7 +27,7 @@ const SellBookCard = ({
   };
 
   return (
-    <div className="w-80 rounded-lg shadow-lg overflow-hidden bg-white mt-4">
+    <div className="min-w-[320px] w-[320px] max-w-[320px] min-h-[429px] h-[429px] rounded-lg shadow-lg overflow-hidden bg-white mt-4">
       <img src={picture} className="w-full h-48 object-cover" />
       <div className="p-4 pb-2">
         <h2 className="text-xl font-bold">{title}</h2>

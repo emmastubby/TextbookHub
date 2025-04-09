@@ -37,7 +37,7 @@ const FindBookCard = ({ picture, title, edition, author, price, condition }) => 
 
                 <p className="font-bold mt-2">Asking Price: ${price}</p>
                 <hr />
-                <p className="text-gray-500 mt-1">{condition} condition</p>
+                <p className="text-gray-500 mt-1">Condition:  {condition}</p>
             </div>
             <div className="p-4 pt-2">
                 {/* TODO: Navigate to chat with specifc seller */}

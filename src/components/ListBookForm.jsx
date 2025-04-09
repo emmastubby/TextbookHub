@@ -13,6 +13,7 @@ const ListBookForm = () => {
     author: "",
     isbn: "",
     condition: "New",
+    edition: 1,
     price: "",
     description: "",
     image: null,
@@ -29,6 +30,7 @@ const ListBookForm = () => {
       author: formData.author,
       isbn: formData.isbn,
       condition: formData.condition,
+      edition: formData.edition,
       price: formData.price,
       description: formData.description,
       image: formData.image,
@@ -83,6 +85,18 @@ const ListBookForm = () => {
           name="isbn"
           value={formData.isbn}
           onChange={(e) => setFormData({ ...formData, isbn: e.target.value })}
+          className="w-full p-2 border rounded-md mb-4"
+        />
+        {/* Edition */}
+        <label className="block mb-2 font-semibold">Edition:</label>
+        <input
+          type="number"
+          name="edition"
+          required
+          value={formData.edition}
+          onChange={(e) =>
+            setFormData({ ...formData, edition: parseInt(e.target.value) })
+          }
           className="w-full p-2 border rounded-md mb-4"
         />
 

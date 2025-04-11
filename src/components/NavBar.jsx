@@ -56,7 +56,9 @@ const NavBar = () => {
       {/* if user is logged in, show the profile icon */}
       {authAtom.isLoggedIn ? (
         <div className="flex items-center space-x-2">
-          <span className="text-gray-700">Emma Stubby </span>
+          <span className="text-gray-700">
+          {authAtom.userName || authAtom.userEmail}
+             </span>
           <FaUserCircle className="text-gray-700 text-2xl" />
           <button className="bg-blue-500 text-white px-6 py-2 rounded">
             <Link to="/find" onClick={handleLogout}>

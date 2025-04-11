@@ -4,7 +4,7 @@ import { Favorite, ChatBubbleOutline } from '@mui/icons-material';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FindBookCard = ({ picture, title, edition, author, price, condition }) => {
+const FindBookCard = ({ bookId, picture, title, edition, author, price, condition }) => {
 
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -43,7 +43,9 @@ const FindBookCard = ({ picture, title, edition, author, price, condition }) => 
                 {/* TODO: Navigate to chat with specifc seller */}
                 <button
                     className="w-4/5 bg-blue-500 text-white py-2 px-4 mr-1 rounded-lg hover:bg-blue-600 transition"
-                    onClick={() => navigate("/messages/")}
+                    onClick={() => {
+                        navigate(`/messages?bookId=${bookId}`);
+                      }}
                 >
                     Message
                     <ChatBubbleOutline className="ml-4"></ChatBubbleOutline>

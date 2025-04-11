@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import FindBookCard from "../components/FindBookCard";
-import algo from '../assets/algo.jpg';
+import algo from '../assets/intro_to_algo.png';
+import formal_lang from '../assets/formal_lang.png';
+import prog_lang from '../assets/prog_lang.png';
+import stats from '../assets/stats.png';
+import data_structures from '../assets/data_structures.png';
 import { Search } from '@mui/icons-material';
 import { db } from '../firebase-config';
 import { collection, getDocs } from 'firebase/firestore';
@@ -71,7 +75,7 @@ const FindBook = () => {
 
       <div className="flex gap-4 overflow-x-auto p-4">
       {books.map((book, index) => (
-        <FindBookCard picture={algo} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition}/>
+        <FindBookCard picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition}/>
       ))}
       </div>
 

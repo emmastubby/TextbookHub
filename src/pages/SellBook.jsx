@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SellBookCard from "../components/SellBookCard";
 import SoldBookCard from "../components/SoldBookCard";
-import algo from "../assets/algo.jpg";
+import algo from '../assets/intro_to_algo.png';
+import formal_lang from '../assets/formal_lang.png';
+import prog_lang from '../assets/prog_lang.png';
+import stats from '../assets/stats.png';
+import data_structures from '../assets/data_structures.png';
 import { Add } from "@mui/icons-material";
 import { useRecoilState } from "recoil";
 import { authState } from "../recoil/atoms";
@@ -85,7 +89,7 @@ const SellBook = () => {
           <SellBookCard
             key={book.id}
             bookId={book.id}
-            picture={book.image}
+            picture={eval(book.image)}
             title={book.title}
             edition={book.edition}
             author={book.author}

@@ -4,7 +4,7 @@ import { Favorite, ChatBubbleOutline } from '@mui/icons-material';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FindBookCard = ({ bookId, picture, title, edition, author, price, condition }) => {
+const FindBookCard = ({ bookId, picture, title, edition, author, price, condition, onFavorited }) => {
 
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -12,6 +12,7 @@ const FindBookCard = ({ bookId, picture, title, edition, author, price, conditio
 
     const toggleFavorite = () => {
         setIsFavorited((prev) => !prev);
+        onFavorited(bookId); // send bookId to FindBook component
     };
 
     // edition is a number, convert to string. If 1st, 2nd, 3rd, else add "th"

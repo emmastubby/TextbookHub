@@ -12,6 +12,7 @@ import { collection, getDocs } from 'firebase/firestore';
 const FindBook = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const [favorites, setFavorites] = useState([]);
 
   // get books
   useEffect(() => {
@@ -40,6 +41,23 @@ const FindBook = () => {
   const handleSearch = (event) => {
     event.preventDefault();
     console.log("Searching for:", searchTerm);
+  };
+
+  // Handle book being favorited
+  const handleFavorited = (bookId) => {
+    const foundBook = books.find(book => book.id === bookId);
+    const favoritedBook = favorites.find(book => book.id === bookId);
+    
+    // if book is not currently in favorites
+    if (favoritedBook === undefined) {
+      setFavorites(prev => [...prev, foundBook]); // add it to favorites
+      console.log('here')
+    }
+    else {
+      setFavorites(prevFavs => prevFavs.filter(book => book.id !== bookId)); // remove from favorites
+    }
+
+    console.log(favorites);
   };
 
   return (
@@ -75,13 +93,17 @@ const FindBook = () => {
 
       <div className="flex gap-4 overflow-x-auto p-4">
         {books.map((book, index) => (
-          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} />
+          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
         ))}
       </div>
 
       <h1 className="text-2xl font-bold text-gray-600 mt-8">My Favorites:</h1>
 
-      <FindBookCard picture={algo} title="Algorithm Analysis" edition="10" author="Qi Cheng" price="20" condition="Good" />
+      <div className="flex gap-4 overflow-x-auto p-4">
+        {favorites.map((book, index) => (
+          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
+        ))}
+      </div>
     </div>
   );
 };

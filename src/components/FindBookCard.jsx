@@ -4,9 +4,9 @@ import { Favorite, ChatBubbleOutline } from '@mui/icons-material';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const FindBookCard = ({ bookId, picture, title, edition, author, price, condition, onFavorited }) => {
+const FindBookCard = ({ bookId, picture, title, edition, author, price, condition, favorited=false, onFavorited }) => {
 
-    const [isFavorited, setIsFavorited] = useState(false);
+    const [isFavorited, setIsFavorited] = useState(favorited);
 
     const navigate = useNavigate();
 

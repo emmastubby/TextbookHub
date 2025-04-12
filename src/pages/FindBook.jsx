@@ -58,8 +58,8 @@ const FindBook = () => {
           className="px-4 py-3 bg-green-600 text-white font-semibold rounded-r-md hover:bg-green-700"
         >
           <div className="flex">
-          Search
-          <Search className="ml-3"></Search>
+            Search
+            <Search className="ml-3"></Search>
           </div>
         </button>
       </form>
@@ -74,14 +74,14 @@ const FindBook = () => {
       )} */}
 
       <div className="flex gap-4 overflow-x-auto p-4">
-      {books.map((book, index) => (
-        <FindBookCard picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition}/>
-      ))}
+        {books.map((book, index) => (
+          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} />
+        ))}
       </div>
 
       <h1 className="text-2xl font-bold text-gray-600 mt-8">My Favorites:</h1>
 
-      <FindBookCard picture={algo} title="Algorithm Analysis" edition="10" author="Qi Cheng" price="20" condition="Good"/>
+      <FindBookCard picture={algo} title="Algorithm Analysis" edition="10" author="Qi Cheng" price="20" condition="Good" />
     </div>
   );
 };

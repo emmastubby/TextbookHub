@@ -66,6 +66,14 @@ const SellBook = () => {
     alert("Book listed for sale!");
   };
 
+  const imageMap = {
+      intro_to_algo: algo,
+      formal_lang: formal_lang,
+      prog_lang: prog_lang,
+      stats: stats,
+      data_structures: data_structures,
+    };
+
   return (
     <div className="flex flex-col min-h-screen p-6 pt-24">
       <div className="mb-6 flex flex-row">
@@ -89,7 +97,7 @@ const SellBook = () => {
           <SellBookCard
             key={book.id}
             bookId={book.id}
-            picture={eval(book.image)}
+            picture={imageMap[book.image]}
             title={book.title}
             edition={book.edition}
             author={book.author}

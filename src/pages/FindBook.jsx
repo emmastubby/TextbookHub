@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import FindBookCard from "../components/FindBookCard";
-import algo from '../assets/intro_to_algo.png';
-import formal_lang from '../assets/formal_lang.png';
-import prog_lang from '../assets/prog_lang.png';
-import stats from '../assets/stats.png';
-import data_structures from '../assets/data_structures.png';
-import { Search } from '@mui/icons-material';
-import { db } from '../firebase-config';
-import { collection, getDocs } from 'firebase/firestore';
-import { FavoriteBorder } from '@mui/icons-material';
+import algo from "../assets/intro_to_algo.png";
+import formal_lang from "../assets/formal_lang.png";
+import prog_lang from "../assets/prog_lang.png";
+import stats from "../assets/stats.png";
+import data_structures from "../assets/data_structures.png";
+import { Search } from "@mui/icons-material";
+import { db } from "../firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import { FavoriteBorder } from "@mui/icons-material";
 
 const FindBook = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   // get books
@@ -20,11 +21,12 @@ const FindBook = () => {
     const fetchBooks = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "books"));
-        const bookList = querySnapshot.docs.map(doc => ({
+        const bookList = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setBooks(bookList);
+        setFilteredBooks(bookList);
       } catch (error) {
         console.error("Error fetching books: ", error);
       }
@@ -36,26 +38,41 @@ const FindBook = () => {
   // Handle input change
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+    if (event.target.value === "") {
+      setFilteredBooks(books);
+    }
   };
 
   // Handle form submission
   const handleSearch = (event) => {
     event.preventDefault();
     console.log("Searching for:", searchTerm);
+    if (searchTerm === "") {
+      // if search term is empty, reset to original books
+      setFilteredBooks(books);
+      return;
+    }
+    // filter books based on search term
+    const filter = filteredBooks.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.isbn.toString().includes(searchTerm)
+    );
+    setFilteredBooks(filter);
   };
 
   // Handle book being favorited
   const handleFavorited = (bookId) => {
-    const foundBook = books.find(book => book.id === bookId);
-    const favoritedBook = favorites.find(book => book.id === bookId);
-    
+    const foundBook = books.find((book) => book.id === bookId);
+    const favoritedBook = favorites.find((book) => book.id === bookId);
+
     // if book is not currently in favorites
     if (favoritedBook === undefined) {
-      setFavorites(prev => [...prev, foundBook]); // add it to favorites
-      console.log('here')
-    }
-    else {
-      setFavorites(prevFavs => prevFavs.filter(book => book.id !== bookId)); // remove from favorites
+      setFavorites((prev) => [...prev, foundBook]); // add it to favorites
+      console.log("here");
+    } else {
+      setFavorites((prevFavs) => prevFavs.filter((book) => book.id !== bookId)); // remove from favorites
     }
 
     console.log(favorites);
@@ -83,7 +100,9 @@ const FindBook = () => {
         </button>
       </form>
 
-      <p className="text-sm text-gray-500 mb-6">Search by title, author, keyword, or ISBN</p>
+      <p className="text-sm text-gray-500 mb-6">
+        Search by title, author, keyword, or ISBN
+      </p>
 
       <h1 className="text-2xl font-bold text-gray-600">Based On Your Major:</h1>
 
@@ -93,18 +112,44 @@ const FindBook = () => {
       )} */}
 
       <div className="flex gap-4 overflow-x-auto p-4">
-        {books.map((book, index) => (
-          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
+        {filteredBooks.map((book, index) => (
+          <FindBookCard
+            key={book.id}
+            bookId={book.id}
+            picture={eval(book.image)}
+            title={book.title}
+            edition={book.edition}
+            author={book.author}
+            price={book.price}
+            condition={book.condition}
+            onFavorited={handleFavorited}
+          />
         ))}
       </div>
 
       <h1 className="text-2xl font-bold text-gray-600 mt-8">My Favorites:</h1>
 
-      {favorites.length == 0 && <h1 className="text-xl text-gray-500 font-semibold p-10">Click the heart icon (<FavoriteBorder></FavoriteBorder>) on a listing to add a book to your favorites.</h1>}
+      {favorites.length == 0 && (
+        <h1 className="text-xl text-gray-500 font-semibold p-10">
+          Click the heart icon (<FavoriteBorder></FavoriteBorder>) on a listing
+          to add a book to your favorites.
+        </h1>
+      )}
 
       <div className="flex gap-4 overflow-x-auto p-4">
         {favorites.map((book, index) => (
-          <FindBookCard key={book.id} favorited={true} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
+          <FindBookCard
+            key={book.id}
+            favorited={true}
+            bookId={book.id}
+            picture={eval(book.image)}
+            title={book.title}
+            edition={book.edition}
+            author={book.author}
+            price={book.price}
+            condition={book.condition}
+            onFavorited={handleFavorited}
+          />
         ))}
       </div>
     </div>

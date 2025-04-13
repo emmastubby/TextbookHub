@@ -13,6 +13,7 @@ import { FavoriteBorder } from '@mui/icons-material';
 const FindBook = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [books, setBooks] = useState([]);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
   // get books
@@ -25,6 +26,7 @@ const FindBook = () => {
           ...doc.data()
         }));
         setBooks(bookList);
+        setFilteredBooks(bookList); // Initialize filteredBooks with all books
       } catch (error) {
         console.error("Error fetching books: ", error);
       }
@@ -36,13 +38,30 @@ const FindBook = () => {
   // Handle input change
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
+    if (event.target.value === "") {
+      setFilteredBooks(books); // Reset to original books if input is empty
+    }
   };
 
-  // Handle form submission
-  const handleSearch = (event) => {
+   // Handle form submission
+   const handleSearch = (event) => {
     event.preventDefault();
     console.log("Searching for:", searchTerm);
+    if (searchTerm === "") {
+      // if search term is empty, reset to original books
+      setFilteredBooks(books);
+      return;
+    }
+    // filter books based on search term
+    const filter = filteredBooks.filter(
+      (book) =>
+        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        book.isbn.toString().includes(searchTerm)
+    );
+    setFilteredBooks(filter);
   };
+
 
   // Handle book being favorited
   const handleFavorited = (bookId) => {
@@ -60,6 +79,15 @@ const FindBook = () => {
 
     console.log(favorites);
   };
+
+  const imageMap = {
+    intro_to_algo: algo,
+    formal_lang: formal_lang,
+    prog_lang: prog_lang,
+    stats: stats,
+    data_structures: data_structures,
+  };
+  
 
   return (
     <div className="flex flex-col min-h-screen p-6 pt-24">
@@ -93,8 +121,8 @@ const FindBook = () => {
       )} */}
 
       <div className="flex gap-4 overflow-x-auto p-4">
-        {books.map((book, index) => (
-          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
+        {filteredBooks.map((book, index) => (
+          <FindBookCard key={book.id} bookId={book.id} picture={imageMap[book.image]} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
         ))}
       </div>
 
@@ -104,7 +132,7 @@ const FindBook = () => {
 
       <div className="flex gap-4 overflow-x-auto p-4">
         {favorites.map((book, index) => (
-          <FindBookCard key={book.id} favorited={true} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
+          <FindBookCard key={book.id} favorited={true} bookId={book.id} picture={imageMap[book.image]} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
         ))}
       </div>
     </div>

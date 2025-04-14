@@ -15,6 +15,7 @@ const FindBook = () => {
   const [books, setBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [searchMode, setSearchMode] = useState(false);
 
   // get books
   useEffect(() => {
@@ -40,13 +41,15 @@ const FindBook = () => {
     setSearchTerm(event.target.value);
     if (event.target.value === "") {
       setFilteredBooks(books); // Reset to original books if input is empty
+      setSearchMode(false);
     }
   };
 
-   // Handle form submission
-   const handleSearch = (event) => {
+  // Handle form submission
+  const handleSearch = (event) => {
     event.preventDefault();
     console.log("Searching for:", searchTerm);
+    setSearchMode(true);
     if (searchTerm === "") {
       // if search term is empty, reset to original books
       setFilteredBooks(books);
@@ -67,7 +70,7 @@ const FindBook = () => {
   const handleFavorited = (bookId) => {
     const foundBook = books.find(book => book.id === bookId);
     const favoritedBook = favorites.find(book => book.id === bookId);
-    
+
     // if book is not currently in favorites
     if (favoritedBook === undefined) {
       setFavorites(prev => [...prev, foundBook]); // add it to favorites
@@ -87,7 +90,7 @@ const FindBook = () => {
     stats: stats,
     data_structures: data_structures,
   };
-  
+
 
   return (
     <div className="flex flex-col min-h-screen p-6 pt-24">
@@ -113,7 +116,9 @@ const FindBook = () => {
 
       <p className="text-sm text-gray-500 mb-6">Search by title, author, keyword, or ISBN</p>
 
-      <h1 className="text-2xl font-bold text-gray-600">Based On Your Major:</h1>
+      {searchMode == true && <h1 className="text-2xl font-bold text-gray-600">Search Results:</h1>}
+
+      {searchMode == false && <h1 className="text-2xl font-bold text-gray-600">Based On Your Major:</h1>}
 
       {/* Display entered text (for testing)
       {searchTerm && (

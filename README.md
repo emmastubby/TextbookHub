@@ -56,4 +56,7 @@ This project is styled with Tailwind CSS. If you need to modify styles, update `
 
 ---
 
+## Maneuvering the User Interface
+
+
 Built with ❤️ using **Vite, React, and Tailwind CSS**.

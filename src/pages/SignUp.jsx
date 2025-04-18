@@ -1,3 +1,7 @@
+/**
+* @fileOverview Sign up page for users to create a new account
+*/
+
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -13,6 +17,7 @@ const SignUp = () => {
   const [verifyPassword, setVerifyPassword] = useState("");
   const [authAtom, setAuthAtom] = useRecoilState(authState);
 
+  // when sign up button is pressed, verify password and create new user
   const handleSignUp = async (e) => {
     e.preventDefault();
 

@@ -1,3 +1,7 @@
+/**
+* @fileOverview Page for users to browse, search for books, and save books
+*/
+
 import React, { useState, useEffect } from "react";
 import FindBookCard from "../components/FindBookCard";
 import algo from '../assets/intro_to_algo.png';
@@ -17,7 +21,7 @@ const FindBook = () => {
   const [favorites, setFavorites] = useState([]);
   const [searchMode, setSearchMode] = useState(false);
 
-  // get books
+  // get book data from firebase database
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -83,15 +87,6 @@ const FindBook = () => {
     console.log(favorites);
   };
 
-  const imageMap = {
-    intro_to_algo: algo,
-    formal_lang: formal_lang,
-    prog_lang: prog_lang,
-    stats: stats,
-    data_structures: data_structures,
-  };
-
-
   return (
     <div className="flex flex-col min-h-screen p-6 pt-24">
       {/* Search Bar */}
@@ -120,14 +115,9 @@ const FindBook = () => {
 
       {searchMode == false && <h1 className="text-2xl font-bold text-gray-600">Based On Your Major:</h1>}
 
-      {/* Display entered text (for testing)
-      {searchTerm && (
-        <p className="mt-4 text-gray-600">Searching for: <strong>{searchTerm}</strong></p>
-      )} */}
-
       <div className="flex gap-4 overflow-x-auto p-4">
         {filteredBooks.map((book, index) => (
-          <FindBookCard key={book.id} bookId={book.id} picture={imageMap[book.image]} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
+          <FindBookCard key={book.id} bookId={book.id} picture={eval(book.image)} title={book.title} edition={book.edition} author={book.author} price={book.price} condition={book.condition} onFavorited={handleFavorited} />
         ))}
       </div>
 

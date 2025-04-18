@@ -1,3 +1,7 @@
+/**
+* @fileOverview Login page for users to sign in
+*/
+
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,6 +20,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [authAtom, setAuthAtom] = useRecoilState(authState);
 
+  // handle login button pressed
   const handleLogin = async (e) => {
     e.preventDefault();
     try {

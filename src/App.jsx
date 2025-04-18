@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import NavBar from "./components/NavBar"; // Import the NavBar component
-import Home from "./pages/Home";
 import FindBook from "./pages/FindBook";
 import SellBook from "./pages/SellBook";
 import Messages from "./pages/Messages";
@@ -37,7 +36,7 @@ const App = () => {
   />
   <Route
   path="/home"
-  element={auth.isLoggedIn ? <Home /> : <Navigate to="/login" />}
+  element={auth.isLoggedIn ? <Navigate to="/find" /> : <Navigate to="/login" />}
   />
   <Route
     path="/find"

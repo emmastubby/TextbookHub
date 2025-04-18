@@ -1,3 +1,7 @@
+/**
+* @fileOverview Messaging page for users to message each other about transactions
+*/
+
 import React, { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase-config';
@@ -20,12 +24,13 @@ const navigate = useNavigate();
     image: null,
   });
 
-  const [messages, setMessages] = useState([
-    //{ id: 1, text: "Hey there!", sender: "other" },
-    //{ id: 2, text: "Hello! How's it going?", sender: "me" },
-  ]);
+  // Holds message data locally
+  const [messages, setMessages] = useState([]);
 
+  // message input
   const [input, setInput] = useState("");
+
+  // default message data to show what the page will look like if functional
   const [chats, setChats] = useState([
     { id: 1, name: "Alice", transaction: "Selling:", status: "Available", title: "Introduction to Algorithms", edition: "4th" },
     { id: 2, name: "Bob", transaction: "Interested in:", status: "Available", title: "Algorithm Analysis", edition: "10th" },
@@ -56,6 +61,7 @@ const navigate = useNavigate();
     fetchBookData();
   }, []);
 
+  // handle sending a message
   const sendMessage = () => {
     if (input.trim() === "") return;
     setMessages([...messages, { id: messages.length + 1, text: input, sender: "me" }]);

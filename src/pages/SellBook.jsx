@@ -1,3 +1,7 @@
+/**
+* @fileOverview Sell Book page for users to view their current listing, past listings, and sell a new book
+*/
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SellBookCard from "../components/SellBookCard";
@@ -14,6 +18,7 @@ import { db } from "../firebase-config";
 import { getDocs, collection } from "firebase/firestore";
 
 const SellBook = () => {
+  // data to be entered into the sell book form
   const [formData, setFormData] = useState({
     title: "",
     author: "",
@@ -23,11 +28,13 @@ const SellBook = () => {
     description: "",
     image: null,
   });
+
   const [auth, setAuth] = useRecoilState(authState);
   const [books, setBooks] = useState([]);
 
   const navigate = useNavigate();
 
+  // fetch user's book listings from database
   useEffect(() => {
     const fetchBooks = async () => {
       // pull user data from firebase
@@ -66,14 +73,6 @@ const SellBook = () => {
     alert("Book listed for sale!");
   };
 
-  const imageMap = {
-      intro_to_algo: algo,
-      formal_lang: formal_lang,
-      prog_lang: prog_lang,
-      stats: stats,
-      data_structures: data_structures,
-    };
-
   return (
     <div className="flex flex-col min-h-screen p-6 pt-24">
       <div className="mb-6 flex flex-row">
@@ -97,7 +96,7 @@ const SellBook = () => {
           <SellBookCard
             key={book.id}
             bookId={book.id}
-            picture={imageMap[book.image]}
+            picture={eval(book.image)}
             title={book.title}
             edition={book.edition}
             author={book.author}

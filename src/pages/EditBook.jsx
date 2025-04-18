@@ -1,3 +1,7 @@
+/**
+* @fileOverview Page for editing book data in your own listing
+*/
+
 import React, { useEffect } from "react";
 import { doc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase-config";
@@ -8,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 const EditBook = () => {
   const navigate = useNavigate();
   const [auth, setAuth] = useRecoilState(authState);
+
+  // data entered into form
   const [formData, setFormData] = React.useState({
     bookId: "",
     title: "",
@@ -42,6 +48,7 @@ const EditBook = () => {
     fetchBookData();
   }, []);
 
+  // handle edit form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {

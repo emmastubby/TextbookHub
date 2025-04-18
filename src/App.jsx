@@ -6,7 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import NavBar from "./components/NavBar"; // Import the NavBar component
+import NavBar from "./components/NavBar";
 import FindBook from "./pages/FindBook";
 import SellBook from "./pages/SellBook";
 import Messages from "./pages/Messages";

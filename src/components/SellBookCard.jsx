@@ -1,3 +1,7 @@
+/**
+* @fileOverview Component to display book information about books being sold by user
+*/
+
 import { IconButton } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { FavoriteBorder } from "@mui/icons-material";
@@ -13,6 +17,7 @@ const SellBookCard = ({
   bookId,
 }) => {
   const navigate = useNavigate();
+  
   // edition is a number, convert to string. If 1st, 2nd, 3rd, else add "th"
   const editionString = (edition) => {
     if (edition === 1) {

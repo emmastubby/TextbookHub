@@ -1,3 +1,7 @@
+/**
+* @fileOverview Page for filling out information to list a new book for sale
+*/
+
 import React from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../firebase-config";
@@ -8,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 const ListBookForm = () => {
   const navigate = useNavigate();
   const [auth, setAuth] = useRecoilState(authState);
+
+  // data entered into form
   const [formData, setFormData] = React.useState({
     title: "",
     author: "",
@@ -19,6 +25,7 @@ const ListBookForm = () => {
     image: null,
   });
 
+  // handle form submitted
   const handleSubmit = (event) => {
     event.preventDefault();
     const booksRef = collection(db, "books");

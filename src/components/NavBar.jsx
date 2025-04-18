@@ -1,3 +1,7 @@
+/**
+* @fileOverview Main navigation bar component to navigate between pages
+*/
+
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaBook, FaUserCircle } from "react-icons/fa";
@@ -9,6 +13,7 @@ const NavBar = () => {
   const [authAtom, setAuthAtom] = useRecoilState(authState);
   const location = useLocation(); // Get current path
 
+  // handle logout button pressed
   const handleLogout = () => {
     setAuthAtom({
       userID: "",

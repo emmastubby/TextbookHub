@@ -1,3 +1,7 @@
+/**
+* @fileOverview Component to display past listings that have been closed
+*/
+
 import { IconButton } from '@mui/material';
 import { Check } from '@mui/icons-material';
 import { FavoriteBorder } from '@mui/icons-material';

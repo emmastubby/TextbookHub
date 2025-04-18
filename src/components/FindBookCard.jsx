@@ -1,3 +1,7 @@
+/**
+* @fileOverview Component to display book information about books for sale by other users
+*/
+
 import { IconButton } from '@mui/material';
 import { FavoriteBorder } from '@mui/icons-material';
 import { Favorite, ChatBubbleOutline } from '@mui/icons-material';
@@ -6,10 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 const FindBookCard = ({ bookId, picture, title, edition, author, price, condition, favorited=false, onFavorited }) => {
 
+    // manages whether favorite icon is filled
     const [isFavorited, setIsFavorited] = useState(favorited);
 
     const navigate = useNavigate();
 
+    // handle favorited button pressed
     const toggleFavorite = () => {
         setIsFavorited((prev) => !prev);
         onFavorited(bookId); // send bookId to FindBook component
